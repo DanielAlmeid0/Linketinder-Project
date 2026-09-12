@@ -25,26 +25,36 @@ além de permitir o cadastro de novos candidatos e empresas (requisito opcional)
   `descricaoEmpresa` (aqui, `competencias` representa o que a empresa
   espera dos candidatos).
 ## Como executar
- 
-Pré-requisitos: ter o [Groovy](https://groovy-lang.org/install.html) instalado
-(recomenda-se via [SDKMAN](https://sdkman.io/)):
- 
+
+Pré-requisitos: ter o [Gradle](https://gradle.org/install/) instalado (recomenda-se via [SDKMAN](https://sdkman.io/)), ou usar o wrapper já incluso no projeto (não precisa instalar nada).
+
+### Usando o wrapper (recomendado)
+
+Na raiz do projeto, rode:
+
+```bash
+./gradlew run
+```
+
+*(no Windows, use `gradlew.bat run`)*
+
+O wrapper já baixa a versão correta do Gradle e do Groovy automaticamente, sem precisar instalar nada manualmente.
+
+### Instalando o Gradle manualmente (alternativa)
+
 ```bash
 curl -s "https://get.sdkman.io" | bash
-sdk install groovy
+sdk install gradle
 ```
- 
-Depois, dentro da pasta `src`, rode:
- 
+
+Depois, na raiz do projeto:
+
 ```bash
-groovy Main.groovy
+gradle run
 ```
- 
-O Groovy carrega automaticamente as outras classes (`Pessoa`, `PessoaAbstrata`,
-`Candidato`, `Empresa`) presentes na mesma pasta.
- 
+
 Ao rodar, o menu abaixo aparece no terminal:
- 
+
 ```
 ============= LINKETINDER =============
 1 - Listar todos os candidatos
