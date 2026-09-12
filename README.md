@@ -5,8 +5,7 @@ Projeto ZG-Hero desenvolvido por **Daniel Almeida**
 ## Sobre o projeto
  
 MVP de um sistema de contratação inspirado no Linkedin (competências de
-candidatos e empresas) e no Tinder (lógica de "match" entre perfis),
-proposto pelo Dr. Antônio Paçoca para conectar candidatos e empresas
+candidatos e empresas) e no Tinder (lógica de "match" entre perfis), para conectar candidatos e empresas
 recrutadoras através de competências, sem viés de destaque de perfil.
  
 O sistema mantém, por enquanto, listas em memória de candidatos e empresas
