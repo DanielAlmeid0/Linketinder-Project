@@ -1,3 +1,5 @@
+package model
+
 class Empresa extends Abs_Pessoa {
     String cnpj
     String pais

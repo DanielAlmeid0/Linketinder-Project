@@ -1,3 +1,5 @@
+package model
+
 interface Pessoa {
     String getNome()
     String getEmail()

@@ -1,3 +1,7 @@
+package ui
+import model.Candidato
+import model.Empresa
+import io.LeitorEntrada
 // Projeto: Linketinder - ZG Hero
 // Autor: Daniel Almeida Santos
 //

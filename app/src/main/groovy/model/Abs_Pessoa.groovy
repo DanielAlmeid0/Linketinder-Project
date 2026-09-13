@@ -1,3 +1,5 @@
+package model
+
 abstract class Abs_Pessoa implements Pessoa {
 
     String nome

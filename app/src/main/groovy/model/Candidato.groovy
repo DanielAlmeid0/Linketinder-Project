@@ -1,3 +1,4 @@
+package model
 class Candidato extends Abs_Pessoa {
 
     String cpf
