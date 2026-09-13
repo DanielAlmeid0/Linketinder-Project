@@ -2,7 +2,7 @@ package model
 
 import spock.lang.Specification
 
-class CandidatoTest extends Specification {
+class CandidatoSpec extends Specification {
 
     def "deve criar um candidato com todos os atributos por remetente"() {
         given: "uma lista de competências"

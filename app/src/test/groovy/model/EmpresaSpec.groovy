@@ -2,7 +2,7 @@ package model
 
 import spock.lang.Specification
 
-class EmpresaTest extends Specification {
+class EmpresaSpec extends Specification {
 
     def "deve criar uma empresa com os atributos corretamente"() {
         given:
