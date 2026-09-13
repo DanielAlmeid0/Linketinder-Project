@@ -1,6 +1,6 @@
 package io
 
-class ScannerLeitorEntrada {
+class ScannerLeitorEntrada implements LeitorEntrada {
     private final Scanner scanner
 
     ScannerLeitorEntrada(Scanner scanner) {

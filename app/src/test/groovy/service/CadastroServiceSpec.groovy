@@ -1,8 +1,11 @@
-package model
+package service
 
 import io.LeitorEntrada
+import model.Candidato
+import model.Empresa
+import spock.lang.Specification
 
-class CadastroServiceSpec {
+class CadastroServiceSpec extends Specification{
 
     CadastroService cadastroService
 
@@ -114,4 +117,4 @@ class CadastroServiceSpec {
         candidatos.first().nome == "Cand 1"
     }
 }
-}
+
