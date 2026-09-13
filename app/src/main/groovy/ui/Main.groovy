@@ -1,7 +1,11 @@
 package ui
+
+import io.ScannerLeitorEntrada
 import model.Candidato
 import model.Empresa
 import io.LeitorEntrada
+import service.CadastroService
+
 // Projeto: Linketinder - ZG Hero
 // Autor: Daniel Almeida Santos
 //
@@ -51,7 +55,9 @@ List<Empresa> empresas = [
                 ["Java", "Angular", "Git"])
         ]
 
-Scanner scanner = new Scanner(System.in)
+CadastroService cadastroService = new CadastroService()
+LeitorEntrada leitor = new ScannerLeitorEntrada(new Scanner(System.in))
+
 int opcao = -1
 
 while (opcao != 0) {
@@ -66,7 +72,7 @@ while (opcao != 0) {
     """
     print "Escolha uma opção: "
 
-    String entrada = scanner.nextLine().trim()
+    String entrada = leitor.lerLinha().trim()
     opcao = entrada.isInteger() ? entrada.toInteger() : -1
 
     switch (opcao) {
@@ -79,32 +85,32 @@ while (opcao != 0) {
             break
 
         case 3:
-            print "Nome: "; String nome = scanner.nextLine()
-            print "E-mail: "; String email = scanner.nextLine()
-            print "CPF: "; String cpf = scanner.nextLine()
-            print "Idade: "; int idade = scanner.nextLine().toInteger()
-            print "Estado: "; String estado = scanner.nextLine()
-            print "CEP: "; String cep = scanner.nextLine()
-            print "Descrição pessoal: "; String descricao = scanner.nextLine()
+            print "Nome: "
+            print "E-mail: "
+            print "CPF: "
+            print "Idade: "
+            print "Estado: "
+            print "CEP: "
+            print "Descrição pessoal: "
             print "Competências (separadas por vírgula): "
-            List<String> competencias = scanner.nextLine().split(",")*.trim()
 
-            candidatos << new Candidato(nome, email, cpf, idade, estado, cep, descricao, competencias)
+            Candidato novoCandidato = cadastroService.cadastrarCandidato(leitor)
+            cadastroService.adicionarCandidato(candidatos, novoCandidato)
             println "Candidato cadastrado com sucesso!"
             break
 
         case 4:
-            print "Nome da empresa: "; String nome = scanner.nextLine()
-            print "E-mail corporativo: "; String email = scanner.nextLine()
-            print "CNPJ: "; String cnpj = scanner.nextLine()
-            print "País: "; String pais = scanner.nextLine()
-            print "Estado: "; String estado = scanner.nextLine()
-            print "CEP: "; String cep = scanner.nextLine()
-            print "Descrição da empresa: "; String descricao = scanner.nextLine()
+            print "Nome da empresa: "
+            print "E-mail corporativo: "
+            print "CNPJ: "
+            print "País: "
+            print "Estado: "
+            print "CEP: "
+            print "Descrição da empresa: "
             print "Competências esperadas (separadas por vírgula): "
-            List<String> competencias = scanner.nextLine().split(",")*.trim()
 
-            empresas << new Empresa(nome, email, cnpj, pais, estado, cep, descricao, competencias)
+            Empresa novaEmpresa = cadastroService.cadastrarEmpresa(leitor)
+            cadastroService.adicionarEmpresa(empresas, novaEmpresa)
             println "Empresa cadastrada com sucesso!"
             break
 
