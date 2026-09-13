@@ -7,10 +7,12 @@ Projeto ZG-Hero desenvolvido por **Daniel Almeida**
 MVP de um sistema de contratação inspirado no Linkedin (competências de
 candidatos e empresas) e no Tinder (lógica de "match" entre perfis), para conectar candidatos e empresas
 recrutadoras através de competências, sem viés de destaque de perfil.
- 
-O sistema mantém, por enquanto, listas em memória de candidatos e empresas
-pré-cadastrados e disponibiliza um menu simples no terminal para listá-los,
-além de permitir o cadastro de novos candidatos e empresas (requisito opcional).
+
+O sistema mantém listas em memória de candidatos e empresas
+pré-cadastrados, disponibiliza um menu no terminal para listá-los e
+permite o cadastro de novos candidatos e empresas. A lógica de cadastro
+é coberta por testes unitários usando o **Spock Framework**, com
+mocking da entrada de dados do usuário.
 
 ### Modelagem (POO)
  
@@ -23,34 +25,31 @@ além de permitir o cadastro de novos candidatos e empresas (requisito opcional)
 - `Empresa` extends `PessoaAbstrata`: adiciona `cnpj`, `pais` e
   `descricaoEmpresa` (aqui, `competencias` representa o que a empresa
   espera dos candidatos).
+
+### Cadastro e testabilidade
+
+A lógica de cadastro foi extraída para `CadastroService`, separada da
+leitura de teclado. A leitura de dados é abstraída pela interface
+`LeitorEntrada`:
+
+- `ScannerLeitorEntrada`: implementação real, usada pelo `Main.groovy`,
+  que lê do teclado via `Scanner`.
+- Nos testes, um **mock** de `LeitorEntrada` (via Spock) simula a
+  entrada de dados do usuário, sem depender de teclado real.
+  Essa separação foi o que permitiu testar o cadastro de novos
+  candidatos/empresas de forma unitária e isolada.
 ## Como executar
 
-Pré-requisitos: ter o [Gradle](https://gradle.org/install/) instalado (recomenda-se via [SDKMAN](https://sdkman.io/)), ou usar o wrapper já incluso no projeto (não precisa instalar nada).
+Pré-requisitos: nenhum, além de ter o projeto clonado — o Gradle Wrapper
+já cuida de baixar as ferramentas necessárias automaticamente.
 
-### Usando o wrapper (recomendado)
-
-Na raiz do projeto, rode:
+Na raiz do projeto:
 
 ```bash
 ./gradlew run
 ```
 
 *(no Windows, use `gradlew.bat run`)*
-
-O wrapper já baixa a versão correta do Gradle e do Groovy automaticamente, sem precisar instalar nada manualmente.
-
-### Instalando o Gradle manualmente (alternativa)
-
-```bash
-curl -s "https://get.sdkman.io" | bash
-sdk install gradle
-```
-
-Depois, na raiz do projeto:
-
-```bash
-gradle run
-```
 
 Ao rodar, o menu abaixo aparece no terminal:
 
@@ -63,3 +62,34 @@ Ao rodar, o menu abaixo aparece no terminal:
 0 - Sair
 =========================================
 ```
+
+## Como rodar os testes
+
+O projeto usa o **Spock Framework** para os testes unitários. Para
+rodar todos os testes:
+
+```bash
+./gradlew test
+```
+
+### O que é testado
+
+- `CandidatoSpec` / `EmpresaSpec`: validam o construtor, getters
+  herdados e a formatação de `exibirDados()`.
+- `CadastroServiceSpec`: valida o cadastro de novos candidatos e
+  empresas, incluindo:
+  - Leitura correta dos dados via `LeitorEntrada` **mockado** (simula
+    o que o usuário digitaria, sem depender de teclado real).
+  - Inserção correta do novo item nas listas de candidatos/empresas.
+
+### Sobre a abordagem TDD
+
+O desenvolvimento do `CadastroService` seguiu o ciclo TDD:
+
+1. **Red**: escrita do `CadastroServiceSpec`, com mock de
+   `LeitorEntrada`, antes da implementação completa do serviço.
+2. **Green**: implementação de `CadastroService` até os testes
+   passarem.
+3. **Refactor**: atualização do `Main.groovy` para usar o
+   `CadastroService`, removendo a lógica de cadastro que antes estava
+   solta dentro do menu.
