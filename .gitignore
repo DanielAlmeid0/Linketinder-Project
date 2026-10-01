@@ -25,5 +25,6 @@ build
 # Ignore Kotlin plugin data
 .kotlin
 
-Frontend/node_modules/
-Frontend/dist/
+# Node / Vite
+node_modules/
+dist/
