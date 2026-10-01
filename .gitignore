@@ -24,3 +24,6 @@ build
 
 # Ignore Kotlin plugin data
 .kotlin
+
+Frontend/node_modules/
+Frontend/dist/
